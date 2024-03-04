@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FE23 JavaScript2 I2</title>
+    <script type="module" src="main.js"></script>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <h1>Scrum Board</h1>
+            <div>
+                <form action="">
+                    <input type="text" name="taskInfo" id="taskInfo" autocomplete="off" placeholder="Enter task">
+                    <select name="categories" id="cat">
+                        <option value="ux">UX</option>
+                        <option value="backend">Dev Backend</option>
+                        <option value="frontend">Dev Frontend</option>
+                    </select>
+                    <input type="button" value="Add">
+                </form>
+            </div>
+            <div class="categories">
+                <div>
+                    <h2 class="uxTitle">UX</h2>
+                </div>
+                <div>
+                    <h2 class="backendTitle">Dev Backend</h2>
+                </div>
+                <div>
+                    <h2 class="frontendTitle">Dev Frontend</h2>
+                </div>
+            </div>
+        </div>
+        <div class="taskListContainer">
+            <div class="taskLists">
+                <h2>To-Do</h2>
+                <div class="todoContainer" id="todoContainer"></div>
+            </div>
+            <div class="taskLists">
+                <h2>In Progress</h2>
+                <div class="inProgressContainer" id="inProgressContainer"></div>
+            </div>
+            <div class="taskLists">
+                <h2>Done</h2>
+                <div class="doneContainer" id="doneContainer"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

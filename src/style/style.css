@@ -1,0 +1,61 @@
+* {
+    margin: 0px;
+}
+
+.main {
+    width: 100%;
+    font-family: sans-serif;
+}
+
+.header {
+    width: 100%;
+    background-color: rgb(196, 196, 196);
+    text-align: center;
+}
+
+h1 {
+    padding-bottom: 20px;
+}
+
+.categories {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.categories>div {
+    margin: 20px;
+}
+
+.uxTitle {
+    background-color: yellow;
+    height: 30px;
+    width: 60px;
+}
+
+.backendTitle {
+    background-color: red;
+    height: 30px;
+    width: 200px;
+}
+
+.frontendTitle {
+    background-color: blue;
+    height: 30px;
+    width: 200px;
+}
+
+.taskListContainer {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.taskLists {
+    min-width: 300px;
+    text-align: center;
+    min-height: 500px;
+    border: 1px solid rgb(182, 182, 182);
+    box-shadow: 2px 2px 4px #a2a2a2;
+    padding: 10px;
+}

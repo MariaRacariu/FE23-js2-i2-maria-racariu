@@ -1,0 +1,14 @@
+{
+    "users": [
+        {
+            "id": 1708535120240,
+            "name": "Chuck Norris",
+            "admin": true
+        },
+        {
+            "id": 1708535142109,
+            "name": "Beyoncé",
+            "admin": true
+        }
+    ]
+}
