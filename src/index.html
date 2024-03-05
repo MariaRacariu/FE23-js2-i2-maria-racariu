@@ -13,14 +13,14 @@
         <div class="header">
             <h1>Scrum Board</h1>
             <div>
-                <form action="">
+                <form name="postTask" action="" method="POST" id="postTaskForm">
                     <input type="text" name="taskInfo" id="taskInfo" autocomplete="off" placeholder="Enter task">
                     <select name="categories" id="cat">
                         <option value="ux">UX</option>
-                        <option value="backend">Dev Backend</option>
-                        <option value="frontend">Dev Frontend</option>
+                        <option value="dev backend">Dev Backend</option>
+                        <option value="dev frontend">Dev Frontend</option>
                     </select>
-                    <input type="button" value="Add">
+                    <input type="button" value="Add" id="postButton">
                 </form>
             </div>
             <div class="categories">
@@ -38,7 +38,8 @@
         <div class="taskListContainer">
             <div class="taskLists">
                 <h2>To-Do</h2>
-                <div class="todoContainer" id="todoContainer"></div>
+                <div class="todoContainer" id="todoContainer">
+                </div>
             </div>
             <div class="taskLists">
                 <h2>In Progress</h2>

@@ -1,18 +1,13 @@
-import express from "express";
-import * as db from "./api/main.js";
+import { readTask, createTask } from "./modules/crud.js";
+const databaseLink = "https://scrum-board-4eb67-default-rtdb.europe-west1.firebasedatabase.app/tasks.json";
 
-const app = express();
-app.use(express.json());
+async function fetchData() {
+    const response = await fetch(databaseLink);
+    const data = await response.json();
+    console.log(data);
+    readTask(data);
+}
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Content-Type");
-    next();
-});
+fetchData();
 
-// Get all tasks
-app.get('/api/tasks', (req, res) => {
-    db.getTasks().then(users => res.json(users))
-    console.log(users);
-    console.log("Hello");
-})
+const postButton = document.querySelector("#postButton").addEventListener("click", createTask);

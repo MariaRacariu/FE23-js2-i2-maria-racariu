@@ -25,26 +25,19 @@ tasks
         assigned: {en string}
 
 
-// import express from 'express';
-
-// const app = express();
-// app.use(express.json());
-
-
-// // Switch port if required
-// const port = 1234;
-
-// app.listen(port, () => {
-//     console.log(`Listening to port ${port}`);
-// })
-
-// app.get('/', (req, res) => {
-//     res.json({ test: 'hej hej' })
-// })
-
-// const animals = [cat, bird];
-// app.post('/animals', (req, res) => {
-//     console.log(req.body);
-//     animals.push(req.body)
-//     res.json(animals);
-// })
+if (data[task].task && data[task].category && data[task].status && data[task].assigned) {
+            console.log("OK");
+        }
+        else {
+            console.log('NOT OK')
+            console.log(data[task]);
+        }
+        else if (data[task].assigned === "none" || data[task].assigned === undefined) {
+            console.log("They ok");
+            console.log(data[task]);
+        }
+        
+        if (!'task' in data || !'category' in data || !'status' in data || !'assigned' in data) {
+            console.log(data[task]);
+            console.log("something broke");
+        }
