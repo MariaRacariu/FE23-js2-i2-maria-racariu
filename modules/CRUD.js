@@ -125,7 +125,7 @@ function displayTasks(data) {
             const doneButton = document.createElement("input");
             assignForm.appendChild(doneButton);
             doneButton.type = "button";
-            doneButton.value = "Done";
+            doneButton.value = "Done ✓";
 
             doneButton.addEventListener("click", () => {
                 doneTask(task);
@@ -138,7 +138,7 @@ function displayTasks(data) {
             const deleteButton = document.createElement("input");
             assignForm.appendChild(deleteButton);
             deleteButton.type = "button";
-            deleteButton.value = "Delete";
+            deleteButton.value = "Delete X";
 
             deleteButton.addEventListener("click", () => {
 
