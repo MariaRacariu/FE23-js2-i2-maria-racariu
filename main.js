@@ -1,3 +1,9 @@
-import { fetchData, postData } from "./modules/CRUD.js";
-fetchData();
-const postButton = document.querySelector("#postButton").addEventListener("click", postData);
+import { fetchData, postData, displayTasks } from "./modules/CRUD.js";
+
+fetchData().then(displayTasks);
+
+const postButton = document.querySelector("#postButton");
+postButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    postData();
+})

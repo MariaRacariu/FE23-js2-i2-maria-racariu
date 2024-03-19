@@ -5,14 +5,15 @@ const databaseLink = "https://scrum-board-4eb67-default-rtdb.europe-west1.fireba
 export async function fetchData() {
     const response = await fetch(databaseLink);
     const data = await response.json();
-    console.log(data);
-    displayTasks(data);
+    // console.log(data);
     return data;
 }
 
 export function postData() {
+
     const taskInfo = document.querySelector("#taskInfo").value;
     const category = document.querySelector("#cat").value;
+    const postTaskForm = document.querySelector("#postTaskForm");
 
     const dataStructure = {
         assigned: "",
@@ -35,8 +36,8 @@ export function postData() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(dataStructure),
         });
-        clearData();
-
+        postTaskForm.reset();
+        fetchData().then(displayTasks);
         return await response.json();
     }
 }
@@ -51,11 +52,12 @@ async function assignTask(task, assignedPerson) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dataStructure),
     });
-
+    fetchData().then(displayTasks);
     return response.json();
 }
 
 async function doneTask(task) {
+
     const dataStructure = {
         status: "done",
     }
@@ -64,7 +66,7 @@ async function doneTask(task) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dataStructure),
     });
-
+    fetchData().then(displayTasks);
     return response.json();
 }
 
@@ -74,6 +76,7 @@ async function deleteTask(task) {
             method: "DELETE",
         });
         if (response.ok) {
+            fetchData().then(displayTasks);
             console.log("Task Deleted");
         } else {
             console.log("Task was not deleted");
@@ -83,22 +86,31 @@ async function deleteTask(task) {
     }
 }
 
-function displayTasks(data) {
+export function displayTasks(data) {
+    const todoContainer = document.querySelector("#todoContainer");
+    const inProgressContainer = document.querySelector("#inProgressContainer");
+    const doneContainer = document.querySelector("#doneContainer");
+
+    todoContainer.innerHTML = "";
+    inProgressContainer.innerHTML = "";
+    doneContainer.innerHTML = "";
 
     for (const task in data) {
         // console.log(data[task].task);
 
-
         const taskContainer = document.createElement("div");
-        taskContainer.classList = "card";
+        taskContainer.classList.add("card");
 
         const taskInfo = document.createElement("p");
         taskInfo.innerText = `${data[task].task} - ${data[task].assigned}`;
         taskContainer.appendChild(taskInfo);
 
         if (data[task].status === "to do") {
+            todoContainer.appendChild(taskContainer);
+
             taskInfo.innerText = data[task].task;
             const assignForm = document.createElement("form");
+            assignForm.method = "POST";
             taskContainer.appendChild(assignForm);
 
             const assignInput = document.createElement("input");
@@ -107,31 +119,39 @@ function displayTasks(data) {
             assignInput.name = "assign";
             assignInput.placeholder = "Enter Name";
 
-            const assignInputButton = document.createElement("input");
+            const assignInputButton = document.createElement("button");
             assignForm.appendChild(assignInputButton);
-            assignInputButton.type = "button";
-            assignInputButton.value = "Assign";
+            assignInputButton.type = "submit";
+            assignInputButton.innerText = "Assign";
 
-            assignInputButton.addEventListener("click", () => {
+            assignInputButton.addEventListener("click", (event) => {
+                event.preventDefault();
                 const assignedPerson = assignInput.value;
                 assignTask(task, assignedPerson);
-                clearData();
             })
 
         } else if (data[task].status === "in progress") {
+            inProgressContainer.appendChild(taskContainer);
+
+            if (data[task].assigned === null || undefined) {
+                todoContainer.appendChild(taskContainer);
+            }
+
             const assignForm = document.createElement("form");
             taskContainer.appendChild(assignForm);
 
-            const doneButton = document.createElement("input");
+            const doneButton = document.createElement("button");
             assignForm.appendChild(doneButton);
-            doneButton.type = "button";
-            doneButton.value = "Done ✓";
+            doneButton.type = "submit";
+            doneButton.innerText = "Done ✓";
 
-            doneButton.addEventListener("click", () => {
+            doneButton.addEventListener("click", (event) => {
+                event.preventDefault();
                 doneTask(task);
-                clearData();
             })
         } else if (data[task].status === "done") {
+            doneContainer.appendChild(taskContainer);
+
             const assignForm = document.createElement("form");
             taskContainer.appendChild(assignForm);
 
@@ -141,33 +161,18 @@ function displayTasks(data) {
             deleteButton.value = "Delete X";
 
             deleteButton.addEventListener("click", () => {
-
                 deleteTask(task);
-                clearData();
-
             })
         }
 
+        if (data[task].category === "ux") {
+            taskContainer.classList.add("uxCard");
 
-        if (data[task].status === "to do") {
-            todoContainer.appendChild(taskContainer);
+        } else if (data[task].category === "dev backend") {
+            taskContainer.classList.add("devBackendCard");
 
-        } else if (data[task].status === "in progress") {
-            inProgressContainer.appendChild(taskContainer);
-            if (data[task].assigned === null || undefined) {
-                todoContainer.appendChild(taskContainer);
-            }
-
-        } else if (data[task].status === "done") {
-            doneContainer.appendChild(taskContainer);
-
+        } else if (data[task].category === "dev frontend") {
+            taskContainer.classList.add("devFrontendCard");
         }
     }
-}
-
-function clearData() {
-    todoContainer.innerHTML = "";
-    inProgressContainer.innerHTML = "";
-    doneContainer.innerHTML = "";
-    fetchData();
 }

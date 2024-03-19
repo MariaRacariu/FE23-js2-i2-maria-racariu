@@ -88,14 +88,14 @@ h1 {
     width: 100%;
 }
 
-.todoContainer>.card {
+.uxCard {
     background-color: #E1BC29;
 }
 
-.inProgressContainer>.card {
+.devBackendCard {
     background-color: #E15554;
 }
 
-.doneContainer>.card {
+.devFrontendCard {
     background-color: #3BB273;
 }
